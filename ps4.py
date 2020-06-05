@@ -98,7 +98,7 @@ def testNestEggVariable():
 #
 # Problem 3
 #
-'''
+
 def postRetirement(savings, growthRates, expenses):
     """
     - savings: the initial amount of money in your savings account.
@@ -109,19 +109,38 @@ def postRetirement(savings, growthRates, expenses):
     - return: a list of your retirement account value at the end of each year.
     """
     # TODO: Your code here.
+    savings=abs(float(savings))
+    #save=abs(float(save))
+
+    #if save > 100: return "Save should be less than 100"
+    #if growthRates > 100: return "growth rate should be less than 100"
+
+    lst=[]
+    lst.append(savings * (1 + .01 * growthRates[0]) -expenses)  #first year fund
+
+    for year in range(1,len(growthRates)):
+      lst.append(lst[year-1] * (1 + .01 * growthRates[year]) -expenses )  #second to last year fund
+    
+    return lst
 
 def testPostRetirement():
     savings     = 100000
     growthRates = [10, 5, 0, 5, 1]
     expenses    = 30000
     savingsRecord = postRetirement(savings, growthRates, expenses)
-    print savingsRecord
+    print(savingsRecord)
     # Output should have values close to:
     # [80000.000000000015, 54000.000000000015, 24000.000000000015,
     # -4799.9999999999854, -34847.999999999985]
 
     # TODO: Add more test cases here.
+    print(postRetirement(500000,growthRates,3000))
+    print(postRetirement(5000000, growthRates,20000))
+    print(postRetirement(400000, growthRates,10000))
+    print(postRetirement(5000000, growthRates,4000))
+    print(postRetirement(400000,growthRates,30000))
 
+'''
 #
 # Problem 4
 #
@@ -157,4 +176,5 @@ def testFindMaxExpenses():
     '''
 
 #testNestEggFixed()
-testNestEggVariable()
+#testNestEggVariable()
+testPostRetirement()
