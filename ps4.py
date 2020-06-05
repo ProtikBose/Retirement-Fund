@@ -140,7 +140,7 @@ def testPostRetirement():
     print(postRetirement(5000000, growthRates,4000))
     print(postRetirement(400000,growthRates,30000))
 
-'''
+
 #
 # Problem 4
 #
@@ -159,6 +159,37 @@ def findMaxExpenses(salary, save, preRetireGrowthRates, postRetireGrowthRates,
       the investment fund at the end of retirement.
     """
     # TODO: Your code here.
+    
+    #save=abs(float(save))
+
+    #if save > 100: return "Save should be less than 100"
+    #if growthRates > 100: return "growth rate should be less than 100"
+
+    s = nestEggVariable(salary, save, preRetireGrowthRates)
+    savings = s[-1]      #last year savings (pre-retirement)
+
+    low = 0
+    high = savings
+    expenses = (low+high)/2
+
+    c = postRetirement(savings, postRetireGrowthRates, expenses)
+    curSavings = c[-1]
+    #print(curSavings)
+
+    while(abs(curSavings) > epsilon) :
+      c = postRetirement(savings, postRetireGrowthRates, expenses)
+      curSavings = c[-1]
+
+      if curSavings > epsilon :
+        low = expenses
+      elif curSavings < epsilon :
+        high = expenses
+      else :
+        break
+      #print("OK")
+      expenses = (low+high)/2
+
+    return expenses
 
 def testFindMaxExpenses():
     salary                = 10000
@@ -166,15 +197,19 @@ def testFindMaxExpenses():
     preRetireGrowthRates  = [3, 4, 5, 0, 3]
     postRetireGrowthRates = [10, 5, 0, 5, 1]
     epsilon               = .01
-    expenses = findMaxExpenses(salary, save, preRetireGrowthRates,
-                               postRetireGrowthRates, epsilon)
-    print expenses
+    expenses = findMaxExpenses(salary, save, preRetireGrowthRates, postRetireGrowthRates, epsilon)
+    print(expenses)
     # Output should have a value close to:
     # 1229.95548986
 
     # TODO: Add more test cases here.
-    '''
+    print(findMaxExpenses(500000, 30, preRetireGrowthRates, postRetireGrowthRates, epsilon))
+    print(findMaxExpenses(5000000, 10, preRetireGrowthRates, postRetireGrowthRates, epsilon))
+    print(findMaxExpenses(400000, 20, preRetireGrowthRates, postRetireGrowthRates, epsilon))
+    print(findMaxExpenses(5000000, 30,  preRetireGrowthRates, postRetireGrowthRates, epsilon))
+    print(findMaxExpenses(400000, 15, preRetireGrowthRates, postRetireGrowthRates, epsilon))
 
-#testNestEggFixed()
-#testNestEggVariable()
+testNestEggFixed()
+testNestEggVariable()
 testPostRetirement()
+testFindMaxExpenses()
