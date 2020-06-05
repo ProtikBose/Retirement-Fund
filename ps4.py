@@ -90,7 +90,11 @@ def testNestEggVariable():
     # [1000.0, 2040.0, 3142.0, 4142.0, 5266.2600000000002]
 
     # TODO: Add more test cases here.
-
+    print(nestEggVariable(500000, 20, growthRates))
+    print(nestEggVariable(5000000, 30, growthRates))
+    print(nestEggVariable(400000, 130, growthRates))
+    print(nestEggVariable(5000000, 10, growthRates))
+    print(nestEggVariable(400000,5, growthRates))
 #
 # Problem 3
 #
